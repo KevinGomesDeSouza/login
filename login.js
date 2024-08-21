@@ -5,14 +5,17 @@ class Login {
     static matlogado = null;
     static nomelogado = null;
     static acessologado = null;
-    static endpoint = 'https://844f1358-4147-47fb-8cda-5d5e2e27efc8-00-3s860dsgbw3kv.kirk.replit.dev/';
     static estilocss =  null;
     static callback_ok = null;
     static callback_naook = null;
     static config = {
-        cor:"048"
+        cor:null,
+        img:null,
+        endpoint:null,
         
     };
+
+    //https://844f1358-4147-47fb-8cda-5d5e2e27efc8-00-3s860dsgbw3kv.kirk.replit.dev
     static login = (callback_ok,callback_naook,config=null)=>{
         if(config!= null){
             this.config = config
@@ -120,27 +123,26 @@ class Login {
         const mat = document.querySelector("#f_username").value;
         let pas = document.querySelector("#f_senha").value;
 
-        const endpoint = `https://844f1358-4147-47fb-8cda-5d5e2e27efc8-00-3s860dsgbw3kv.kirk.replit.dev/?matricula=${mat}&senha=${pas}`;
+        const endpoint = `${this.config.endpoint}/?matricula=${mat}&senha=${pas}`;
 
         fetch(endpoint)
         .then((res)=>{
             return res.json()
         })
         .then((res)=>{
-
            if(res){
-                this.logado = true;
-                this.matlogado = mat;
-                this.nomelogado = res.nome;
-                this.acessologado = res.acesso;
+                sessionStorage.setItem("logado","true");
+                sessionStorage.setItem("matlogado",mat);
+                sessionStorage.setItem("nomelogado",res.nome);
+                sessionStorage.setItem("acessologado",res.nome);
                 this.callback_ok();
                 this.fechar();
            }
            else{
-                this.logado = false;
-                this.matlogado = null;
-                this.nomelogado = null;
-                this.acessologado = null;
+                sessionStorage.setItem("logado","false");
+                sessionStorage.setItem("matlogado","");
+                sessionStorage.setItem("nomelogado","");
+                sessionStorage.setItem("acessologado","");
                 this.callback_naook();
            }
         });
