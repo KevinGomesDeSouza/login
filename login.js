@@ -131,7 +131,7 @@ class Login {
         })
         .then((res)=>{
            if(res){
-                sessionStorage.setItem("logado","true");
+                document.sessionStorage.setItem("logado","true");
                 sessionStorage.setItem("matlogado",mat);
                 sessionStorage.setItem("nomelogado",res.nome);
                 sessionStorage.setItem("acessologado",res.nome);
